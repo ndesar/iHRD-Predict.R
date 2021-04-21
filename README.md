@@ -1,9 +1,6 @@
 # iHRD-Predict.R
 Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors
 
-# iHRD_Predict.R()
-Classification of tumor based on functional Homologous Recombination Deficiency status
-
 iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using standard paired whole-exome sequencing derived genomic features. 
 
 ## Description
