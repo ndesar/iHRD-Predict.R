@@ -1,2 +1,91 @@
 # iHRD-Predict.R
 Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors
+
+# iHRD_Predict.R()
+Classification of tumor based on functional Homologous Recombination Deficiency status
+
+iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using standard paired whole-exome sequencing derived genomic features. 
+
+## Description
+iHRD is a simplistic implementation of the SVM Radial Basis Function to do a binary classification.
+
+## Uses
+
+iHRD classification inference can help determine the HR functional activity (independent of its detected HR pathway gene mutation or copy number aberration status). This tool utilizes functional HR deficiency associated with multiple genomic scar scores for accurate classification of a tumor. This classification method may potentially contribute to therapy choice determination in mCRPC.
+
+
+
+
+# iHRD_predict.R Manual
+
+INTRODUCTION:iHRD is an R package which determines the tumor label 0 for HR intact phenotype and 1 for homologous recombination deficiency based on Tumor Normal paired NGS (WES) data.
+Multiparametric HRD prediction was done using HR Detect, primarily built for Breast and Overian Cancers. The tool is implemented for WGD data. Since the next generation exome sequencing is cost effective and less storage demanding, it has become important to develop algorithms that derive the same type of genomic scar-score based multiparametric HRD determination from exome/clinical exome dataset. In order to perform this analysis, here we introduce the iHRD, a R package and show integration of multiparametric feture scores reliably derivable from exome can perform efficient HRD classification. iHRD is a non linear SVM-RBF classification framework.
+
+#SVM classification implementation to perform binary HRD prediction from 6 input features.
+
+## REQUIREMENTS:
+R installed (tested with v.3.6 and 4.0)
+The following packages installed :
+Tested on Linux, Windows (R Studio/Terminal)
+
+# DEPENDENCIES
+library(dplyr)
+library(MASS)
+library(e1071)
+library(xlsx)
+library(ROCR)
+library(pROC)
+
+NOTE: Analysis required paired tumor-normal exome sequence data.
+NOTE: Normalization required based on Exome definition.
+
+# CITATION:
+Under Revision;
+
+## Running iHRD on mCRPC: 
+
+## Input Features: 
+1. COSMIC Sig3 and 2.COSMIC Sig8 weights from DeconstructSigs.
+3. Mutation Burden (MuTect1 PASS filter and minimum depth of coverage 14 filter, alt allele support 6X filter).
+4. Number of Segments (Derived from Sequenza pipeline)
+5. Ploidy (Ploidy estimates using Sequenza)
+6. LOH score estimation was performed using LOH_Salipante (will be shared on request).
+
+(mCRPC model freeze V1)
+
+load(iHRD_Predict_fit_ws.RData)
+
+# input dataset
+data
+
+# Train data iHRD label & Discision values
+pred.train
+
+##test data in workspace assign iHRD designation to mCRPC tumor samples and LuCaP PDX samples in "iHRD-datafreeze-July2020-NatCom_final.xlsx" (COl2#label2)
+#test.data <- data[data$HRD_input_category%in%c(2)]
+#test.data.x <- test.data[, c(3,9, 7, 8, 6, 4)]
+
+#pred.test <- predict(svm.fit.nl, test.data.x, decision.values =  T)
+
+pred.test
+Pred=data.frame(cbind(Sample_id=test.data$Sample_id_su2c, pred.test))
+Write.table(Pred, file="iHRD_pred_annotation.txt", sep="\t")
+
+
+## TEST PREDICTION on model test data (input your own data here)
+model test data (input your own test data here)
+Order of columns important with variable names - LOH, Mut_burden, Sig3, Sig8, Number_of_segments, Ploidy, Sample_id (refer example)
+
+Input file examples(Minimal):
+a<-read.table("/examples/test1.small.seqz.gz", header=T)
+[sample_input _data_iHRD.txt](https://github.com/ndesar/iHRD_predict/files/6288197/sample_input._data_iHRD.txt)
+
+user.test.data <- read.csv('model_test_data.csv', header = T)
+pred.user.test <- predict(svm.fit.nl, user.test.data, decision.values =  T)
+pred.user.test<-data.frame(cbind(Sample_id=user.test.data$Sample_id, pred.user.test))
+
+Write.table(Pred.user.text, file="iHRD_pred_annotation_user.txt", sep="\t")
+
+
+## Running iHRD on non mCRPC cancer types
+use ordered table. Define large train data to estimate optimal gamma and cost. Execute iHRD_Predict.R 
