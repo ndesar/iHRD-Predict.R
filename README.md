@@ -22,8 +22,7 @@ Multifeature approach of detecting homologous recombination deficiency is an eff
 
 ## REQUIREMENTS:
 R installed (tested with v.3.6 and 4.0)
-The following packages installed :
-Tested on Linux, Windows (R Studio/Terminal)
+Tested on Linux, Windows, Mac (R Studio/Terminal)
 
 # DEPENDENCIES
 library(dplyr)
@@ -50,10 +49,10 @@ Under Revision;
 
 (mCRPC model freeze V1)
 
-load(iHRD_Predict_fit_ws.RData)
+# Example
 
-# input dataset
-data
+See iHRDPredict.html
+
 
 # Train data iHRD label & Discision values
 pred.train
@@ -86,3 +85,32 @@ Write.table(Pred.user.text, file="iHRD_pred_annotation_user.txt", sep="\t")
 
 ## Running iHRD on non mCRPC cancer types
 use ordered table. Define large train data to estimate optimal gamma and cost. Execute iHRD_Predict.R 
+
+Test file need to have HRD_input_category label set at 2
+Example input table: 
+
+	Input Ref Sample_id	HRD_input_category	LOH	Ploidy	Mutation Count	Number_of_segments	Sig3	Sig8	Mut_burden
+239	41	2	0.112	1.9	151	117	0	0.07	1.709692029
+240	42	2	0.127	2.6	106	62	0.12	0	1.268245992
+241	43	2	0.02	2.1	585	252	0.29	0	6.623641304
+242	45	2	0.123	4	423	118	0.31	0	11.51647155
+243	47	2	0.231	2.2	272	245	0.18	0	3.079710145
+244	53	2	0.15	5.1	652	705	0.28	0.07	7.382246377
+245	70	2	0.18	3.5	369	205	0.28	0	4.17798913
+246	71	2	0.173	2.6	364	525	0.26	0	4.121376812
+247	72	2	0.076	3.5	348	329	0.18	0	3.940217391
+248	74	2	0.07	4.4	331	564	0.21	0	3.747735507
+249	78	2	0.196	2.3	246	1146	0.17	0	2.785326087
+250	01-095C6_LIVER.pdf	2	0.129	3.6	823	174	0.26	0	12.10294118
+251	01-095N1_LN.pdf	2	0.127	3.8	868	186	0.32	0	12.76470588
+252	03-163S4_LIVER.pdf	2	0.137	3.1	221	121	0.17	0	3.25
+253	04-149E2_LN.pdf	2	0.172	4.5	603	134	0.48	0	8.867647059
+254	04-149J1_CAP.pdf	2	0.173	4.5	432	134	0.35	0	6.352941176
+255	05-011D2_LN.pdf	2	0.157	4.4	504	142	0.48	0	7.411764706
+256	05-011G4_LUNG.pdf	2	0.194	2.2	448	124	0.38	0	6.588235294
+257	11-028G3_ADRENAL.pdf	2	0.108	1.9	410	84	0.29	0	6.029411765
+258	11-028L1_LUNG.pdf	2	0.109	2	550	115	0.17	0	8.088235294
+259	97-159H2_LIVER.pdf	2	0.216	3.3	139	188	0.23	0	2.044117647![image](https://user-images.githubusercontent.com/33163983/116130236-d7696c80-a67f-11eb-8213-1a5708269702.png)
+
+
+
