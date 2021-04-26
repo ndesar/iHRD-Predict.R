@@ -1,5 +1,5 @@
 # iHRD-Predict.R
-Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors
+Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors (Authors: Navonil De Sarkar & Sayan Dasgupta. Collaborator/Contributor: Brian Hanratty)
 
 iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using standard paired whole-exome sequencing derived genomic features. 
 
@@ -75,6 +75,7 @@ Order of columns important with variable names - LOH, Mut_burden, Sig3, Sig8, Nu
 Input file examples(Minimal):
 a<-read.table("/examples/test1.small.seqz.gz", header=T)
 [sample_input _data_iHRD.txt](https://github.com/ndesar/iHRD_predict/files/6288197/sample_input._data_iHRD.txt)
+Input file examples(Expanded):
 
 user.test.data <- read.csv('model_test_data.csv', header = T)
 pred.user.test <- predict(svm.fit.nl, user.test.data, decision.values =  T)
@@ -82,14 +83,7 @@ pred.user.test<-data.frame(cbind(Sample_id=user.test.data$Sample_id, pred.user.t
 
 Write.table(Pred.user.text, file="iHRD_pred_annotation_user.txt", sep="\t")
 
-
-## Running iHRD on non mCRPC cancer types
-use ordered table. Define large train data to estimate optimal gamma and cost. Execute iHRD_Predict.R 
-
-Test file need to have HRD_input_category label set at 2
-Example input table: 
-
-[image](https://user-images.githubusercontent.com/33163983/116130236-d7696c80-a67f-11eb-8213-1a5708269702.png)
+Example input file format
 
 
-
+[iHRD-datafreeze-July2020-Git-sample-test-file.xlsx](https://github.com/ndesar/iHRD-Predict.R/files/6379285/iHRD-datafreeze-July2020-Git-sample-test-file.xlsx)
