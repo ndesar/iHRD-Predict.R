@@ -51,8 +51,7 @@ Under Revision;
 
 # Example
 
-See iHRDPredict.html
-
+See iHRDPredict.pdf iHRDPredict.html 
 
 # Train data iHRD label & Discision values
 pred.train
