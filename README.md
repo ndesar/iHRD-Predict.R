@@ -4,23 +4,13 @@ Classify tumors based on Homologous Recombination Pathway Deficiency status of t
 iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using standard paired whole-exome sequencing derived genomic features. 
 
 ## Description
-iHRD is a simplistic implementation of the SVM Radial Basis Function to do a binary classification.
+iHRD is an implementation of the SVM Radial Basis Function to do a binary classification.
 
 ## Uses
 
-iHRD classification inference can help determine the HR functional activity (independent of its detected HR pathway gene mutation or copy number aberration status). This tool utilizes functional HR deficiency associated with multiple genomic scar scores for accurate classification of a tumor. This classification method may potentially contribute to therapy choice determination in mCRPC.
+iHRD classification help determining the HR functional activity status, independent of its detected HR pathway gene mutation or copy number aberration status in mCRPC tumors. The tool utilizes HR deficiency-associated genomic scar scores for accurate classification of a tumor. This classification method may potentially contribute to therapy choice determination in mCRPC.
 
-
-
-
-# Implementing iHRD-predict.R 
-
-INTRODUCTION:iHRD is a R package which determines the tumor label 0 for HR intact phenotype and 1 for homologous recombination deficiency based on Tumor Normal paired NGS (WES) data.
-Multifeature approach of detecting homologous recombination deficiency is an effective approach now. It is became more relavant, as we know HR Deficient tumors are particularly more sensitive to certain therapies (PARPi/PLAT). A prior tool HRDdetect adopts a regression model and performs a multiparametric prediction of HRD in tumors. The tool was primarily built for Breast and Overian Cancers and it's implementation requirs WGS data. Since the next generation whole exome sequencing is relatively cost effective approach and substantially less storage demanding, it has become important to develop algorithms that derive the same type of genomic scar-score based multiparametric HRD determination from exome/clinical exome dataset. In order to perform this analysis, here we introduce the iHRD. It is a R implement classification framework, integrating multiparametric feture scores that are reliably derivable from exomes to perform efficient classification on HRD phenotype. iHRD is a non linear SVM-RBF classification framework.
-
-#SVM classification implementation to perform binary HRD prediction from 6 input features.
-
-## REQUIREMENTS:
+## SYSTEM REQUIREMENTS:
 R installed (tested with v.3.6 and 4.0)
 Tested on Linux, Windows, Mac (R Studio/Terminal)
 
@@ -52,35 +42,6 @@ Under Revision;
 # Example
 
 See iHRDPredict.pdf iHRDPredict.html 
-
-# Train data iHRD label & Discision values
-pred.train
-
-##test data in workspace assign iHRD designation to mCRPC tumor samples and LuCaP PDX samples in "iHRD-datafreeze-July2020-NatCom_final.xlsx" (COl2#label2)
-#test.data <- data[data$HRD_input_category%in%c(2)]
-#test.data.x <- test.data[, c(3,9, 7, 8, 6, 4)]
-
-#pred.test <- predict(svm.fit.nl, test.data.x, decision.values =  T)
-
-pred.test
-Pred=data.frame(cbind(Sample_id=test.data$Sample_id_su2c, pred.test))
-Write.table(Pred, file="iHRD_pred_annotation.txt", sep="\t")
-
-
-## TEST PREDICTION on model test data (input your own data here)
-model test data (input your own test data here)
-Order of columns important with variable names - LOH, Mut_burden, Sig3, Sig8, Number_of_segments, Ploidy, Sample_id (refer example)
-
-Input file examples(Minimal):
-a<-read.table("/examples/test1.small.seqz.gz", header=T)
-[sample_input _data_iHRD.txt](https://github.com/ndesar/iHRD_predict/files/6288197/sample_input._data_iHRD.txt)
-Input file examples(Expanded):
-
-user.test.data <- read.csv('model_test_data.csv', header = T)
-pred.user.test <- predict(svm.fit.nl, user.test.data, decision.values =  T)
-pred.user.test<-data.frame(cbind(Sample_id=user.test.data$Sample_id, pred.user.test))
-
-Write.table(Pred.user.text, file="iHRD_pred_annotation_user.txt", sep="\t")
 
 Example input file format
 
