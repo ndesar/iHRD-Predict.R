@@ -13,10 +13,10 @@ iHRD classification inference can help determine the HR functional activity (ind
 
 
 
-# iHRD_predict.R Manual
+# Implementing iHRD_predict.R 
 
-INTRODUCTION:iHRD is an R package which determines the tumor label 0 for HR intact phenotype and 1 for homologous recombination deficiency based on Tumor Normal paired NGS (WES) data.
-Multiparametric HRD prediction was done using HR Detect, primarily built for Breast and Overian Cancers. The tool is implemented for WGD data. Since the next generation exome sequencing is cost effective and less storage demanding, it has become important to develop algorithms that derive the same type of genomic scar-score based multiparametric HRD determination from exome/clinical exome dataset. In order to perform this analysis, here we introduce the iHRD, a R package and show integration of multiparametric feture scores reliably derivable from exome can perform efficient HRD classification. iHRD is a non linear SVM-RBF classification framework.
+INTRODUCTION:iHRD is a R package which determines the tumor label 0 for HR intact phenotype and 1 for homologous recombination deficiency based on Tumor Normal paired NGS (WES) data.
+Multifeature approach of detecting homologous recombination deficiency is an effective approach now. It is became more relavant, as we know HR Deficient tumors are particularly more sensitive to certain therapies (PARPi/PLAT). A prior tool HRDdetect adopts a regression model and performs a multiparametric prediction of HRD in tumors. The tool was primarily built for Breast and Overian Cancers and it's implementation requirs WGS data. Since the next generation whole exome sequencing is relatively cost effective approach and substantially less storage demanding, it has become important to develop algorithms that derive the same type of genomic scar-score based multiparametric HRD determination from exome/clinical exome dataset. In order to perform this analysis, here we introduce the iHRD. It is a R implement classification framework, integrating multiparametric feture scores that are reliably derivable from exomes to perform efficient classification on HRD phenotype. iHRD is a non linear SVM-RBF classification framework.
 
 #SVM classification implementation to perform binary HRD prediction from 6 input features.
 
