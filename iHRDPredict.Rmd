@@ -1,0 +1,83 @@
+---
+title: "iHRDPredict"
+author: "Navonil De Sarkar, Brian Hanratty"
+date: "4/21/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/bhanratt/Documents/GitHub/iHRD-Predict.R/')
+```
+
+## LOAD DEPENDENCY PACKAGES; INSTALL THEM IF THEY DON'T EXIST.  
+```{r packages, echo=FALSE, message = FALSE}
+if(!require(dplyr)){
+  install.packages("dplyr")
+  library(dplyr)
+}
+if(!require(MASS)){
+  install.packages("MASS")
+  library(MASS)
+}
+if(!require(e1071)){
+  install.packages("e1071")
+  library(e1071)
+}
+if(!require(readxl)){
+  install.packages("readxl")
+  library(readxl)
+}
+if(!require(ROCR)){
+  install.packages("ROCR")
+  library(ROCR)
+}
+if(!require(pROC)){
+  install.packages("pROC")
+  library(pROC)
+}
+```
+
+## LOAD DATA AND SET SEED  
+```{r readdata}
+#load("iHRD_predict_prefitted_mCRPC_ws.RData")
+data<-read_excel("C:/Users/bhanratt/Documents/GitHub/iHRD-Predict.R/iHRD-datafreeze-July2020-training_2021Apr22.xlsx", sheet = 1, range=cell_cols("B:K"))
+data$HRD_input_category <- as.factor(data$HRD_input_category)
+set.seed(1000)
+```
+
+## BUILD TRAINING/TEST/VALIDATION DATA 
+```{r buildtraintestvalid}
+train.data <- droplevels(data[data$HRD_input_category%in%c(0, 1), ])
+## FEATURES: LOH, Ploidy, Sig 3, Sig 8, Mut_burden, Number_of_segments
+## OUTCOME: HRD_input_category/Validation_category
+train.data.x <- train.data[, c(3,9, 7, 8, 6, 4)]
+train.data.y <- train.data$HRD_input_category
+## model test data (input your own test data here)
+test.data <- data[data$HRD_input_category%in%c(2) & data$Validation_category!='.', ]
+test.data.x <- test.data[, c(3,9, 7, 8, 6, 4)]
+```
+
+## DRY RUN WITH FULL DATA  
+```{r dryrun}
+## 3i. TUNING SPACE AND LOAD
+data<-read_excel("C:/Users/bhanratt/Documents/GitHub/iHRD-Predict.R/iHRD-datafreeze-July2020-Git-sample-test-file.from1.xlsx", sheet = 1, range=cell_cols("B:K"))
+costvec = 10^(-3:1)
+gammavec = c(0.00001, 0.0001, 0.001, 0.01, 0.1, 0.15, 0.2, 0.5, 1, 2, 3, 4, 5)
+## 3ii. CV TUNING 
+tune.obj.nl <- tune.svm(HRD_input_category ~ LOH + Mut_burden + Sig3 + Sig8 + Number_of_segments + Ploidy, data = train.data,				
+                        kernel = 'radial', cost = costvec, gamma = gammavec, tunecontrol = tune.control(nrepeat = 20, cross = 10))
+tune.obj.nl
+## 3iii. RUN FULL MODEL
+svm.fit.nl <- svm(HRD_input_category ~ LOH + Mut_burden + Sig3 + Sig8 + Number_of_segments + Ploidy, data = train.data, 
+                  cost = tune.obj.nl$best.parameters$cost, gamma = tune.obj.nl$best.parameters$gamma, kernel='radial', probability = T)
+## 3iv. TRAINING ERROR
+pred.train <- predict(svm.fit.nl, train.data.x, decision.values =  T)
+pred.train
+train.error <- mean(pred.train != train.data.y)
+## 3v. TEST PREDICTION on model test data (input your own data here)
+pred.test <- predict(svm.fit.nl, test.data.x, decision.values =  T)
+pred.test
+```
