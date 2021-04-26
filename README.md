@@ -86,4 +86,5 @@ Write.table(Pred.user.text, file="iHRD_pred_annotation_user.txt", sep="\t")
 Example input file format
 
 
-[iHRD-datafreeze-July2020-Git-sample-test-file.xlsx](https://github.com/ndesar/iHRD-Predict.R/files/6379285/iHRD-datafreeze-July2020-Git-sample-test-file.xlsx)
+![image](https://user-images.githubusercontent.com/33163983/116132499-7becae00-a682-11eb-9398-2baef81571bf.png)
+
