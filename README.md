@@ -50,7 +50,7 @@ Under Revision;
 
 See iHRDPredict.pdf iHRDPredict.html 
 
-Example input file format
+Example input file format (10 column *.Xlsx compatible)
 
 
 ![image](https://user-images.githubusercontent.com/33163983/116132499-7becae00-a682-11eb-9398-2baef81571bf.png)
