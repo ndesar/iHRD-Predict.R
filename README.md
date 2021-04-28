@@ -1,10 +1,15 @@
 # iHRD-Predict.R
 Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors (Authors: Navonil De Sarkar & Sayan Dasgupta. Collaborator/Contributor: Brian Hanratty)
 
-iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using standard paired whole-exome sequencing derived genomic features. 
+## License 
+ndesar/iHRD-Predict.R is licensed under the
+GNU General Public License v3.0
+(refer LICENSE.md)
+
+iHRD is a binary classification framework for determining tumors' Homologous Recombination pathway's (HR) functional status. The current version freeze of iHRD is trained and tested for metastatic prostate tumor classification using paired whole-exome sequence data derived genomic features. 
 
 ## Description
-iHRD is an implementation of the SVM Radial Basis Function to do a binary classification.
+iHRD is an implementation of the support vector machine (SVM) Radial Basis Function(RBF) to do a binary classification.
 
 ## Uses
 
