@@ -1,5 +1,6 @@
 # iHRD-Predict.R
-Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors (Authors: Navonil De Sarkar & Sayan Dasgupta. Collaborator/Contributor: Brian Hanratty)
+Classify tumors based on Homologous Recombination Pathway Deficiency status of tumors 
+(_Authors: Navonil De Sarkar & Sayan Dasgupta. Collaborator/Contributor: Brian Hanratty_)
 
 ## License 
 ndesar/iHRD-Predict.R is licensed under the
